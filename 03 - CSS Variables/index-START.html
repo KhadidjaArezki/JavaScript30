@@ -17,11 +17,15 @@
     <label for="base">Base Color</label>
     <input id="base" type="color" name="base" value="#ffc600">
   </div>
-
-  <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+  <img src="../01 - JavaScript Drum Kit/background.jpg" alt="">
+  <!-- <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500"> -->
 
   <style>
-
+      :root {
+        --base: #ffc600;
+        --spacing: 10px;
+        --blur: 10px
+      }
     /*
       misc styles, nothing to do with CSS variables
     */
@@ -42,9 +46,45 @@
     input {
       width: 100px;
     }
+
+    img {
+      height: 50vh;
+      width: 50vw;
+      padding: var(--spacing, 10px);
+      background: var(--base, #ffc600);
+      filter: blur(var(--blur, 10px));
+    }
+
+    .hl {
+      color: var(--base, #ffc600);
+    }
+
   </style>
 
   <script>
+    const rootElement = document.documentElement;
+    function handleInputChange(event) {
+      const property = `--${this.id}`;
+      const suffix = this.dataset.sizing || '';
+      rootElement.style.setProperty(property, `${this.value}${suffix}`);
+    }
+
+    const inputs = document.querySelectorAll('.controls input');
+    inputs.forEach(input => input.addEventListener('change', handleInputChange));
+
+    // const spacingInput = document.getElementById('spacing');
+    // spacingInput.addEventListener('change', (event) => {
+    //   console.log('Spacing value' ,event.target.value);
+    //   rootElement.style.setProperty('--spacing', `${event.target.value}px`);
+    // })
+    //   const backgroundInput = document.getElementById('base');
+    //   backgroundInput.addEventListener('change', (event) => {
+    //   rootElement.style.setProperty('--base', event.target.value);
+    // })
+    // const blurInput = document.getElementById('blur');
+    // blurInput.addEventListener('change', (event) => {
+    //   rootElement.style.setProperty('--blur', `${event.target.value}px`);
+    // })
   </script>
 
 </body>
